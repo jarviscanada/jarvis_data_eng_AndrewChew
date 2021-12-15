@@ -18,7 +18,7 @@ Discuss how you implement the project.
 
 ## Architecture
 Draw a cluster diagram with three Linux hosts, a DB, and agents (use draw.io website). Image must be saved to the `assets` directory.
-![architecture_diagram](https://github.com/jarviscanada/jarvis_data_eng_AndrewChew/blob/feature/README_architecture/linux_sql/assets/architecture_diagram.jpeg)
+![architecture_diagram](/linux_sql/assets/architecture_diagram.jpeg)
 
 The image above gives a basic overview of the architecture of the Linux Cluster Monitoring Agent. A `psql` instance is used to persist all data. Several Linux hosts are internally connected through a network switch which is also connected with the database. Each Linux host is installed with a `bash agent` that gathers the server's usage data and inserts it into the database. The `bash agent` consists of two bash scripts - `host_info.sh` which collects the host hardware information and is ran once at installation, and `host_usage.sh` which collets the current host usage (CPU and Memory) and is triggered by `crontab` every minute. 
 
