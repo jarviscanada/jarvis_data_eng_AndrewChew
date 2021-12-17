@@ -43,6 +43,6 @@ insert_stmt="INSERT INTO host_usage \
 # Set up PGPASSWORD environment variable to connect to psql instance without prompting for password.
 export PGPASSWORD=$psql_password
 
-#Insert date into a database
+# Insert data record into the database.
 psql -h $psql_host -p $psql_port -d $db_name -U $psql_user -c "$insert_stmt"
 exit $?
