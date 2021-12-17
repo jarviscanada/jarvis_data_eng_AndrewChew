@@ -14,8 +14,10 @@ db_name=$3
 psql_user=$4
 psql_password=$5
 
-# Save machine statistics to variables.
+# Save host name to variable.
 hostname=$(hostname -f)
+
+# Save machine statistics to variables.
 lscpu_out=$(lscpu)
 vmstat_t=$(vmstat -t)
 
