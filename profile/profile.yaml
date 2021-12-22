@@ -5,7 +5,7 @@ github_repo_root_url: https://github.com/jarviscanada/jarvis_data_eng_AndrewChew
 
 # Introduce yourself, your academic and professional background.
 # What excites you about the software industry and your passion. At least 80 words
-summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis a orci ac malesuada. Vivamus ligula elit, viverra eu ante porttitor, blandit convallis augue. Aliquam justo justo, mollis at lacus eu, rutrum finibus est. Vestibulum venenatis purus id accumsan pretium. In efficitur magna nec enim laoreet tincidunt. Ut libero metus, scelerisque nec eros vitae, sagittis pellentesque enim. Donec dictum felis volutpat, vehicula magna eu, imperdiet elit. Phasellus ut velit a massa efficitur faucibus. Sed volutpat, lacus sed sagittis luctus, elit.
+summary: I am a recent graduate from the University of Toronto with a background in software development, data analytics, and have over 5 years of customer service experience. I am highly adaptive to new environments and always looking for opportunities to enhance my capabilities. Currently, I am working as a Junior Software and Data Engineer at Jarvis Consulting Group where I work with my team in an agile environment to deliver high quality software products. I believe that the software industry is moving at a incredibly rapid pace with new innovations and technologies being discovered every day. I am excited to pursue my two biggest passions in software and data engineering to join this ever evolving community, utilizing big data to build products to make the world a better and infinitely more interesting place.  
 
 # Group your skills by level.
 # Your skills can be anything software related (e.g. language, frameworks, methodologies, software, etc.).
@@ -16,35 +16,37 @@ skills:
     - Linux/Bash
     - RDBMS/SQL
     - Agile/Scrum
-    - Git
+    - Git/GitHub
+    - R/R Markdown
+    - Microsoft Office Suite
   # At least 5 skills
   competent:
-    - Donec
-    - fermentum
-    - Donec
-    - fermentum
-    - Donec
+    - Docker
+    - Python
+    - GitFlow
+    - LateX
+    - Google Workspace
   # At least 5 skills
   familiar:
-    - Donec
-    - fermentum
-    - fermentum
-    - fermentum
-    - fermentum
+    - VNC
+    - Google Cloud Platform
+    - JavaFX
+    - C
+    - Verilog
 
 # List of Jarvis projects
 jarvis_projects:
-  - name: "Cluster Monitor"
+  - name: "Linux Cluster Monitoring Agent"
     git_url: "/linux_sql"
     # The project description allows hiring managers to understand your project and technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
     # The project description must start with an action verb (https://bit.ly/3guO98u)
-    description: Suspendisse a tincidunt odio. Suspendisse posuere luctus aliquet. Quisque magna tellus, tempor vitae arcu sed, volutpat scelerisque lacus. Aliquam varius pulvinar dapibus. Ut a tincidunt sem. Aenean sollicitudin fringilla erat ut imperdiet. Phasellus fermentum, enim vitae laoreet elementum, eros nisl hendrerit lorem.
+    description: "Developed a Linux Cluster Monitoring Agent allowing the Jarvis Linux Cluster Administration team to obtain server hardware and usage statistics in real time. Provisioned a psql instance using a docker container to persist data and designed a bash agent to be installed on servers to collect and insert data into the database. Implemented 3 SQL queries to answer business questions. Collaborated with the development team using the Agile workflow."
   - name: "Core Java Apps"
     git_url: "/core_java"
     description:
-      - "Twitter App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
-      - "JDBC App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
-      - "Grep App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+      - "Twitter App: Not Started"
+      - "JDBC App: Not Started"
+      - "Grep App: Not Started"
   - name: "Springboot App"
     git_url: "/springboot"
     description: ""
@@ -79,32 +81,31 @@ highlighted_projects:
 #The description must be more than 25 words. If your experience is not software related, please focus on soft skills and achievements (e.g. team collaboration, problem-solving, improvements, communication).
 professional_experience:
   #Write your Jarvis role as a professional experience rather than training.
-  - title: "Software Developer"
-    company: "Jarvis"
-    duration: "2020-present"
+  - title: "Junior Software & Data Engineer"
+    company: "Jarvis Consulting Group"
+    duration: "2021-present"
     # The project description must start with an action verb (https://bit.ly/3guO98u)
-    description: "Donec mattis sed justo et sagittis. Vestibulum lacinia nulla ipsum. Curabitur imperdiet nibh vitae leo lacinia laoreet. Nullam accumsan, lectus ut maximus ultricies, augue justo egestas mi, vel bibendum felis."
-  - title: "Tutor"
-    company: "XYZ Company"
-    duration: "2019"
-    description: "Donec mattis sed justo et sagittis. Vestibulum lacinia nulla ipsum. Curabitur imperdiet nibh vitae leo lacinia laoreet. Nullam accumsan, lectus ut maximus ultricies, augue justo egestas mi, vel bibendum felis."
+    description: "Develop software using the SDLC process in an agile work environment, delivering high-quality products."
+  - title: "Produce Clerk Part-Time"
+    company: "Loblaw Companies Limited"
+    duration: "2016-present"
+    description: "Advise customers on over 400 products leading to improved customer satisfaction. Effectively handle conflict resolution in a sensitive and professional manner ensuring safety in the workplace. Train new employees for day-to-day operations. Sucessfully completed diversity training."
+  - title: "Events Coordinator"
+    company: "Hope United Church"
+    duration: "2012-2016"
+    description: "Managed a team of 3 to organize after-school activities for 10 children. Strategized learning sessions for grade school children in Mathematics and Science. Taught children basic piano skills."
 
 #List of edcuation
 education: 
-  - school_name: "XYZ university"
-    duration: "2012-2016"
-    degree: "Bachelor of Applied Sciences"
-    department: "Electrical and Computer Engineering"
+  - school_name: "University of Toronto"
+    duration: "2017-2021"
+    degree: "Honours Bachelor of Science"
+    department: "Actuarial Science, Statistics, and Computer Science"
     # optional
     awards_achievements: 
-      - "Scholarship"
-      - "Dean's List (2015, 2016): Ut enim ad minim veniam"
-      - "GPA: 3.8/4.0"
-  - school_name: "XYZ university"
-    duration: "2016-2018"
-    degree: "Master of Engineering"
-    department: "Electrical and Computer Engineering"
-    awards_achievements: 
+      - "President's Entrance Scholarship"
+      - "Samuel Eckler Memorial Scholarship in Actuarial Science"
+      - "GPA: 3.31/4.0"
 
 #Optional section
 others:
@@ -112,12 +113,10 @@ others:
   - title: "Certificates"
     #list of items
     bullets:
-      - "Udacity Machine Learning (2019)"
-  - title: "Awards"
-    bullets:
-      - "Winner"
+      - "Coursera Data Scientist Toolbox (2020)"
+      - "Coursera R Programming (2020)"
   - title: "Activities/Hobbies"
     bullets:
-      - "Basketball player"
-      - "Competitive gaming"
-      - "Volunteer, ABC Food bank: Ut enim ad minim veniam"
+      - "Pianist"
+      - "Ultimate Frisbee Player"
+      - "Nature Enthusiast"
