@@ -6,6 +6,7 @@ import org.apache.log4j.BasicConfigurator;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JavaGrepImp implements JavaGrep {
@@ -22,7 +23,19 @@ public class JavaGrepImp implements JavaGrep {
      * @throws IOException
      */
     public void process() throws IOException {
+        List<String> matchedLines = new ArrayList<>();
+        List<File> files = listFiles(this.rootPath);
 
+        for (File file: files) {
+            List<String> lines = readLines(file);
+            for (String line: lines) {
+                if (containsPattern(line)) {
+                    matchedLines.add(line);
+                }
+            }
+        }
+
+        writeToFile(matchedLines);
     }
 
     /**
@@ -32,7 +45,25 @@ public class JavaGrepImp implements JavaGrep {
      * @return files under the rootDir
      */
     public List<File> listFiles(String rootDir) {
-        return null;
+        File rootD = new File(rootDir);
+        File[] rootDFiles = rootD.listFiles();
+        List<File> files = new ArrayList<>();
+
+        // Check if any files exist in the root directory.
+        if (rootDFiles != null) {
+            for (File file: rootDFiles) {
+                // If <file> is a file, add it to <files>.
+                if (file.isFile()) {
+                    files.add(file);
+                }
+                // Otherwise, recursively list files and add returned list to <files>.
+                else {
+                    List<File> moreFiles = listFiles(file.getAbsolutePath());
+                    files.addAll(moreFiles);
+                }
+            }
+        }
+        return files;
     }
 
     /**
@@ -55,7 +86,7 @@ public class JavaGrepImp implements JavaGrep {
      * @return true if there is a match, false otherwise
      */
     public boolean containsPattern(String line) {
-        return false;
+        return line.matches(regex);
     }
 
     /**
