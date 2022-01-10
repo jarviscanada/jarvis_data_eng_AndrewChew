@@ -1,0 +1,131 @@
+# Preferred name (Characters only)
+name: "Andrew Chew"
+# Your GitHub repo root URL
+github_repo_root_url: https://github.com/jarviscanada/jarvis_data_eng_AndrewChew
+
+# Introduce yourself, your academic and professional background.
+# What excites you about the software industry and your passion. At least 80 words
+summary: I am a recent graduate from the University of Toronto with a background in software development, data analytics, and have over 5 years of customer service experience. I am highly adaptive to new environments and always looking for opportunities to enhance my capabilities. Currently, I am working as a Junior Software and Data Engineer at Jarvis Consulting Group where I work with my team in an agile environment to deliver high quality software products. I believe that the software industry is moving at an incredibly rapid pace with new innovations and technologies being discovered every day. I am excited to pursue my two biggest passions in software and data engineering to join this ever-evolving community, utilizing big data to design products to make the world a better and infinitely more interesting place.  
+
+# Group your skills by level.
+# Your skills can be anything software related (e.g. language, frameworks, methodologies, software, etc.).
+skills:
+  # At least 5 skills
+  proficient:
+    - Java
+    - Linux/Bash
+    - RDBMS/SQL
+    - Agile/Scrum
+    - Git/GitHub
+    - R/R Markdown
+    - Microsoft Office Suite
+  # At least 5 skills
+  competent:
+    - Docker
+    - Python
+    - GitFlow
+    - LateX
+    - Google Workspace
+  # At least 5 skills
+  familiar:
+    - VNC
+    - Google Cloud Platform
+    - JavaFX
+    - C
+    - Verilog
+
+# List of Jarvis projects
+jarvis_projects:
+  - name: "Linux Cluster Monitoring Agent"
+    git_url: "/linux_sql"
+    # The project description allows hiring managers to understand your project and technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: "Developed a Linux Cluster Monitoring Agent allowing the Jarvis Linux Cluster Administration team to obtain server hardware and usage statistics in real time. Provisioned a psql instance using a docker container to persist data and designed a bash agent to be installed on servers to collect and insert data into the database. Implemented 3 SQL queries to answer business questions. Collaborated with the development team using the Agile workflow."
+  - name: "Core Java Apps"
+    git_url: "/core_java"
+    description:
+      - "Twitter App: Not Started"
+      - "JDBC App: Not Started"
+      - "Grep App: Not Started"
+  - name: "Springboot App"
+    git_url: "/springboot"
+    description: ""
+  - name: "Python Data Analytics"
+    git_url: "/python_data_anlytics"
+    description: ""
+  - name: "Hadoop"
+    git_url: "/hadoop"
+    description: ""
+  - name: "Spark"
+    git_url: "/spark"
+    description: ""
+  - name: "Cloud/DevOps"
+    git_url: "/cloud_devops"
+    description: ""
+
+# List of personal or academic projects
+# Feel free to add more projects
+highlighted_projects:
+    #project name
+  - name: "Sokoban, Othello, and Tenner Grid AI Solver"
+    #URL is optional
+    git_url:
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: Applied key concepts in AI to develop solvers for 3 games using python attaining a final grade of 94. Strategized and developed heuristics to improve runtime performance of solvers by over 75%.
+  - name: "Data Visualization Project on Climate Change"
+    git_url: "https://github.com/Andrew-Chew/STA313W21-Project"
+    description: Managed a team of 3 to identify and analyze 4 large datasets, investigating the relationship between emissions and methods of transportation. Led tutorial sessions introducing RStudio and Version Control via GitHub integration to facilitate collaboration between team members. Designed 3 interactive data visualizations using psychological principles to effectively present and communicate key findings. Rapidly learned and applied the Shiny R package within a week to deliver infographic publicly by deploying a Shiny App online.
+  - name: "Cross-Stitch Image Processing Project"
+    git_url: 
+    description: Developed an R program to produce a cross-stitch pattern from an image using k-means clustering attaining a final grade of 88. Compiled a self-contained non-technical pdf document using Rmd demonstrating the process of the program and how to use it.
+  - name: "Twitter Sentiment during COVID-19 Project"
+    git_url:
+    description: Scraped over 4 million tweets to build a dataset to analyze consumer sentiment during the pandemic in a team of 4. Performed data analysis to identify new terms relating to the pandemic and how they relate to consumer sentiment using machine learning techniques in python.
+  - name: "Restaurant POS System Project"
+    git_url:
+    description: Managed a team of 3 to fully develop a restaurant point of sale system in java utilizing fundamental OOP concepts. Built a fully functioning GUI using JavaFX. Effectively identified and fixed core issues in the code base using vigorous unit testing to improve user experience.
+
+#List of professional experience
+#The job description allows hiring managers to understand your job and the technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
+#The description must be more than 25 words. If your experience is not software related, please focus on soft skills and achievements (e.g. team collaboration, problem-solving, improvements, communication).
+professional_experience:
+  #Write your Jarvis role as a professional experience rather than training.
+  - title: "Junior Software & Data Engineer"
+    company: "Jarvis Consulting Group"
+    duration: "2021-present"
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: "Develop software using the SDLC process in an agile work environment, delivering high-quality products."
+  - title: "Produce Clerk Part-Time"
+    company: "Loblaw Companies Limited"
+    duration: "2016-present"
+    description: "Advise customers on over 400 products leading to improved customer satisfaction. Effectively handle conflict resolution in a sensitive and professional manner ensuring safety in the workplace. Train new employees for day-to-day operations. Successfully completed diversity training."
+  - title: "Events Coordinator"
+    company: "Hope United Church"
+    duration: "2012-2016"
+    description: "Managed a team of 3 to organize after-school activities for 10 children. Strategized learning sessions for grade school children in Mathematics and Science. Taught children basic piano skills."
+
+#List of edcuation
+education: 
+  - school_name: "University of Toronto"
+    duration: "2017-2021"
+    degree: "Honours Bachelor of Science"
+    department: "Actuarial Science, Statistics, and Computer Science"
+    # optional
+    awards_achievements: 
+      - "President's Entrance Scholarship"
+      - "Samuel Eckler Memorial Scholarship in Actuarial Science"
+      - "GPA: 3.31/4.0"
+
+#Optional section
+others:
+    #category
+  - title: "Certificates"
+    #list of items
+    bullets:
+      - "Coursera Data Scientist Toolbox (2020)"
+      - "Coursera R Programming (2020)"
+  - title: "Activities/Hobbies"
+    bullets:
+      - "Pianist"
+      - "Ultimate Frisbee Player"
+      - "Nature Enthusiast"
