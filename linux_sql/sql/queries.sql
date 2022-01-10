@@ -1,3 +1,12 @@
+-- Function to round current timestamp to a 5-min interval.
+CREATE FUNCTION round5(ts timestamp) RETURNS timestamp AS
+$$
+BEGIN
+    RETURN date_trunc('hour', ts) + date_part('minute', ts):: INT / 5 * INTERVAL '5 min';
+END;
+$$
+    LANGUAGE PLPGSQL;
+
 -- Query 1: Group hosts by hardware info.
 -- Group host by CPU number and sort by their memory size in descending order (within each group).
 SELECT
@@ -9,15 +18,6 @@ FROM
     host_info;
 
 -- Query 2: Average Memory Usage.
--- Function to round current timestamp to a 5-min interval.
-CREATE FUNCTION round5(ts timestamp) RETURNS timestamp AS
-$$
-BEGIN
-    RETURN date_trunc('hour', ts) + date_part('minute', ts):: INT / 5 * INTERVAL '5 min';
-END;
-$$
-    LANGUAGE PLPGSQL;
-
 -- Average used memory in percentage over 5-min interval for each host.
 -- Note: total_mem is given in kB while memory_free is given in MB.
 SELECT

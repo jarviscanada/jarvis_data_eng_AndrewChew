@@ -19,7 +19,7 @@ case $cmd in
   # Exit if container has already been created.
   if [ $container_status -eq 0 ]; then
 		echo 'Container already exists'
-		exit 1	
+		exit 0	
 	fi
 
   # Check # of CLI arguments.
