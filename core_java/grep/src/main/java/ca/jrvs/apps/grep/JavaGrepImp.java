@@ -4,8 +4,7 @@ import com.sun.org.slf4j.internal.Logger;
 import com.sun.org.slf4j.internal.LoggerFactory;
 import org.apache.log4j.BasicConfigurator;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +19,13 @@ public class JavaGrepImp implements JavaGrep {
     /**
      * Top level search workflow.
      *
-     * @throws IOException
+     * @throws IOException if process failed.
      */
     public void process() throws IOException {
         List<String> matchedLines = new ArrayList<>();
         List<File> files = listFiles(this.rootPath);
 
+        // Read each line in each file and find matched lines.
         for (File file: files) {
             List<String> lines = readLines(file);
             for (String line: lines) {
@@ -68,7 +68,7 @@ public class JavaGrepImp implements JavaGrep {
 
     /**
      * Read a file and return all the lines.
-     * <p>
+     *
      * Explain FileReader, BufferedReader, and character encoding.
      *
      * @param inputFile the file to be read
@@ -76,7 +76,22 @@ public class JavaGrepImp implements JavaGrep {
      * @throws IllegalArgumentException if a given inputFile is not a file
      */
     public List<String> readLines(File inputFile) {
-        return null;
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile))) {
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = bufferedReader.readLine();
+            }
+        }
+        catch (IllegalArgumentException | FileNotFoundException e) {
+            logger.error("Error: File not found", e);
+        } catch (IOException e) {
+            logger.error("Error: Failed to read files", e);
+        }
+
+        return lines;
     }
 
     /**
@@ -91,7 +106,7 @@ public class JavaGrepImp implements JavaGrep {
 
     /**
      * Write lines to a file.
-     * <p>
+     *
      * Explore: FileOutputStream, OutputStreamWriter, and BufferedWriter.
      *
      * @param lines the lines to be written
@@ -99,6 +114,24 @@ public class JavaGrepImp implements JavaGrep {
      */
     public void writeToFile(List<String> lines) throws IOException {
 
+        File file = new File(this.outFile);
+
+        // Create file if it does not exist.
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            // Write all lines to file.
+            for (String line: lines) {
+                byte[] bytesArray = (line + "\n").getBytes();
+                fos.write(bytesArray);
+                fos.flush();
+            }
+        }
+        catch (IOException e) {
+            logger.error("Error: Unable to write to outfile", e);
+        }
     }
 
     /**
