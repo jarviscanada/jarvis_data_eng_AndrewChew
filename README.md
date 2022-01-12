@@ -8,7 +8,7 @@ I am a recent graduate from the University of Toronto with a background in softw
 
 **Competent:** Docker, Python, GitFlow, LateX, Google Workspace
 
-**Familiar:** VNC, Google Cloud Platform, JavaFX, C, Verilog
+**Familiar:** Google Cloud Platform, VNC, Maven, Log4j/Slf4j, JavaFX, C, Verilog
 
 ## Jarvis Projects
 
@@ -21,7 +21,7 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_AndrewChew
       
   - Twitter App: Not Started
   - JDBC App: Not Started
-  - Grep App: Not Started
+  - Grep App: Developed a java Maven project to perform regex pattern matching on files in a given directory. Leveraged the log4j and slf4j packages to log error messages.
 
 **Springboot App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_AndrewChew/tree/master/springboot)]: Not Started
 
