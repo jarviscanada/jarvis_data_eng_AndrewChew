@@ -28,8 +28,10 @@ skills:
     - Google Workspace
   # At least 5 skills
   familiar:
-    - VNC
     - Google Cloud Platform
+    - VNC
+    - Maven
+    - Log4j/Slf4j
     - JavaFX
     - C
     - Verilog
@@ -46,7 +48,7 @@ jarvis_projects:
     description:
       - "Twitter App: Not Started"
       - "JDBC App: Not Started"
-      - "Grep App: Not Started"
+      - "Grep App: Developed a java Maven project to perform regex pattern matching on files in a given directory. Leveraged the log4j and slf4j packages to log error messages."
   - name: "Springboot App"
     git_url: "/springboot"
     description: ""
