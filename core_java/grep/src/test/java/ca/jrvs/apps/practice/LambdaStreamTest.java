@@ -1,11 +1,12 @@
 package ca.jrvs.apps.practice;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -13,10 +14,22 @@ public class LambdaStreamTest {
 
     private LambdaStream lambdaStream;
 
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final PrintStream originalOutputStream = System.out;
+
     @Before
     public void setUp() {
         // Instantiate test class for each @Test method.
         lambdaStream = new LambdaStream();
+
+        // Set output stream.
+        System.setOut(new PrintStream(outputStream));
+    }
+
+    @After
+    public void cleanUp(){
+        // Reset output stream to System.out.
+        System.setOut(originalOutputStream);
     }
 
     @Test
@@ -111,17 +124,54 @@ public class LambdaStreamTest {
 
     @Test
     public void getLambdaPrinter() {
+        String prefix = "start>";
+        String suffix = "<end";
+        Consumer<String> printer = lambdaStream.getLambdaPrinter(prefix, suffix);
+        printer.accept("test");
+        String expected = "start>test<end\n";
+        String actual = outputStream.toString();
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void printMessages() {
+        String prefix = "msg:";
+        String suffix = "!";
+        String[] messages = {"test1", "test2", "test3"};
+        lambdaStream.printMessages(messages, lambdaStream.getLambdaPrinter(prefix, suffix));
+        String expected = "msg:test1!\nmsg:test2!\nmsg:test3!\n";
+        String actual = outputStream.toString();
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void printOdd() {
+        String prefix = "odd number:";
+        String suffix = "!";
+        int start = 0;
+        int end = 5;
+        lambdaStream.printOdd(lambdaStream.createIntStream(start, end),
+                              lambdaStream.getLambdaPrinter(prefix, suffix));
+        String expected = "odd number:1!\nodd number:3!\nodd number:5!\n";
+        String actual = outputStream.toString();
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void flatNestedInt() {
+        List<Integer> integerList1 = new ArrayList<>();
+        List<Integer> integerList2 = new ArrayList<>();
+        integerList1.add(1);
+        integerList1.add(2);
+        integerList2.add(3);
+        integerList2.add(4);
+        Stream<List<Integer>> stream = Stream.of(integerList1, integerList2);
+        List<Integer> expected = new ArrayList<>();
+        expected.add(1);
+        expected.add(4);
+        expected.add(9);
+        expected.add(16);
+        List<Integer> actual = lambdaStream.toList(lambdaStream.flatNestedInt(stream));
+        Assert.assertEquals(expected, actual);
     }
 }
