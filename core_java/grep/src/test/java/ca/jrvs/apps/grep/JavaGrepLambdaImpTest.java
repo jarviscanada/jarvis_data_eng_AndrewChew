@@ -50,5 +50,11 @@ public class JavaGrepLambdaImpTest {
 
     @Test
     public void readLines() {
+        File inputFile = new File("../grep/data/txt/test/test1.txt");
+        List<String> lines = javaGrepLambdaImp.readLines(inputFile);
+        String expected = "Romeo Juliet\nRmeo Juliet\n";
+        lines.forEach(System.out::println);
+        String actual = outputStream.toString();
+        Assert.assertEquals(expected, actual);
     }
 }

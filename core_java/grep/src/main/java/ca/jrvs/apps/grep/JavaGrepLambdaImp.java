@@ -2,14 +2,14 @@ package ca.jrvs.apps.grep;
 
 import org.apache.log4j.BasicConfigurator;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class JavaGrepLambdaImp extends JavaGrepImp {
 
@@ -46,7 +46,19 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
      */
     @Override
     public List<String> readLines(File inputFile) {
-        return super.readLines(inputFile);
+        String filePath = inputFile.getPath();
+        List<String> lines = new ArrayList<>();
+
+        try (Stream<String> lineStream = Files.lines(Paths.get(filePath))) {
+            lines = lineStream.collect(Collectors.toList());
+        }
+        catch (IllegalArgumentException | FileNotFoundException e) {
+            logger.error("Error: File not found", e);
+        } catch (IOException e) {
+            logger.error("Error: Failed to read files", e);
+        }
+
+        return lines;
     }
 
     public static void main(String[] args) {
