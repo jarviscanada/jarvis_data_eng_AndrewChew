@@ -1,9 +1,15 @@
 # Introduction
-(50-100 words)
-Discuss the design of each app. What does the app do? What technologies have you used? (e.g. core java, libraries, lambda, IDE, docker, etc..)
+This project is designed to mimic the `grep` Linux command in Java.
+Two implementations are provided. The `JavaGrepImp` makes use of
+conventional `for` loops to iterate through files to find matched
+lines. The `JavaGrepLambdaImp` makes use of lambdas to process the
+data. To use the app, the user needs to provide a pattern to match,
+the root directory of data input, and the path to the output file.
+This app has also been dockerized enabling the user to download its
+image from DockerHub.
 
 # Quick Start
-Using CLI
+Using CLI:
 ```angular2html
 cd core_java/grep
 mvn clean compile package
@@ -11,7 +17,7 @@ java -cp target/grep-1.0-SNAPSHOT.jar ca.jrvs.apps.grep.JavaGrepImp \
     .*Romeo.*Juliet.* ./data ./out/grep.txt
 ```
 
-Using Docker
+Using Docker:
 ```angular2html
 cd core_java/grep
 mvn clean compile package
@@ -21,7 +27,7 @@ docker run --rm \
     grep_app .*Romeo.*Juliet.* /data /log/grep.out
 ```
 
-#Implemenation
+#Implementation
 ## Pseudocode
 The `process` method pseudocode.
 ```angular2html
@@ -34,8 +40,11 @@ The `process` method pseudocode.
 ```
 
 ## Performance Issue
-(30-60 words)
-Discuss the memory issue and how would you fix it
+The current implementation makes use of `List` which may take
+up a lot of memory when processing large data sets. To mitigate
+this, we can consider updating the interface and reimplementing
+the methods to return `Stream` instead, thereby optimizing memory
+usage.
 
 # Test
 Sample data text files were obtained and created in the
@@ -47,7 +56,14 @@ created to ensure that the code ran as expected when running
 into such scenarios.
 
 # Deployment
-The grep
+- The application source code is in a GitHub repository.
+- The application was also packaged into a docker container with 
+its image uploaded to DockerHub.
 
-# Improvement
-List three things you can improve in this project.
+# Improvements
+Some possible improvements for the project:
+- Add a GUI for the user to make the app easier to use.
+- Add detailed information about where each matched line was
+found.
+- Update methods to return `Stream` instead of `List` to
+improve memory usage.
