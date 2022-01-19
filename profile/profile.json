@@ -49,7 +49,7 @@
     {
       "description": [
         "Twitter App: Not Started",
-        "JDBC App: Not Started",
+        "JDBC App: Developed a java Maven project to implement DAO patterns to CRUD to and from a psql database provisioned using docker.",
         "Grep App: Developed a java Maven project to perform regex pattern matching on files in a given directory. Leveraged the log4j and slf4j packages to log error messages."
       ],
       "git_url": "/core_java",
@@ -102,7 +102,7 @@
   "professional_experience": [
     {
       "company": "Jarvis Consulting Group",
-      "description": "Develop software using the SDLC process in an agile work environment, delivering high-quality products.",
+      "description": "Develop software using the SDLC process in an agile work environment, delivering high-quality products. Spearheaded daily scrum meetings as team lead for a sprint.",
       "duration": "2021-present",
       "title": "Junior Software \u0026 Data Engineer"
     },
@@ -122,15 +122,15 @@
   "skills": {
     "competent": [
       "Docker",
+      "Maven",
+      "JDBC",
       "Python",
-      "GitFlow",
       "LateX",
       "Google Workspace"
     ],
     "familiar": [
       "Google Cloud Platform",
       "VNC",
-      "Maven",
       "Log4j/Slf4j",
       "JavaFX",
       "C",
@@ -141,7 +141,7 @@
       "Linux/Bash",
       "RDBMS/SQL",
       "Agile/Scrum",
-      "Git/GitHub",
+      "Git/GitHub/GitFlow",
       "R/R Markdown",
       "Microsoft Office Suite"
     ]

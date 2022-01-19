@@ -16,21 +16,21 @@ skills:
     - Linux/Bash
     - RDBMS/SQL
     - Agile/Scrum
-    - Git/GitHub
+    - Git/GitHub/GitFlow
     - R/R Markdown
     - Microsoft Office Suite
   # At least 5 skills
   competent:
     - Docker
+    - Maven
+    - JDBC
     - Python
-    - GitFlow
     - LateX
     - Google Workspace
   # At least 5 skills
   familiar:
     - Google Cloud Platform
     - VNC
-    - Maven
     - Log4j/Slf4j
     - JavaFX
     - C
@@ -47,7 +47,7 @@ jarvis_projects:
     git_url: "/core_java"
     description:
       - "Twitter App: Not Started"
-      - "JDBC App: Not Started"
+      - "JDBC App: Developed a java Maven project to implement DAO patterns to CRUD to and from a psql database provisioned using docker."
       - "Grep App: Developed a java Maven project to perform regex pattern matching on files in a given directory. Leveraged the log4j and slf4j packages to log error messages."
   - name: "Springboot App"
     git_url: "/springboot"
@@ -96,7 +96,7 @@ professional_experience:
     company: "Jarvis Consulting Group"
     duration: "2021-present"
     # The project description must start with an action verb (https://bit.ly/3guO98u)
-    description: "Develop software using the SDLC process in an agile work environment, delivering high-quality products."
+    description: "Develop software using the SDLC process in an agile work environment, delivering high-quality products. Spearheaded daily scrum meetings as team lead for a sprint."
   - title: "Produce Clerk Part-Time"
     company: "Loblaw Companies Limited"
     duration: "2016-present"

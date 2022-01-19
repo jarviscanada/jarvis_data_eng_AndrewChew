@@ -4,11 +4,11 @@ I am a recent graduate from the University of Toronto with a background in softw
 
 ## Skills
 
-**Proficient:** Java, Linux/Bash, RDBMS/SQL, Agile/Scrum, Git/GitHub, R/R Markdown, Microsoft Office Suite
+**Proficient:** Java, Linux/Bash, RDBMS/SQL, Agile/Scrum, Git/GitHub/GitFlow, R/R Markdown, Microsoft Office Suite
 
-**Competent:** Docker, Python, GitFlow, LateX, Google Workspace
+**Competent:** Docker, Maven, JDBC, Python, LateX, Google Workspace
 
-**Familiar:** VNC, Google Cloud Platform, JavaFX, C, Verilog
+**Familiar:** Google Cloud Platform, VNC, Log4j/Slf4j, JavaFX, C, Verilog
 
 ## Jarvis Projects
 
@@ -20,8 +20,8 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_AndrewChew
 **Core Java Apps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_AndrewChew/tree/master/core_java)]:
       
   - Twitter App: Not Started
-  - JDBC App: Not Started
-  - Grep App: Not Started
+  - JDBC App: Developed a java Maven project to implement DAO patterns to CRUD to and from a psql database provisioned using docker.
+  - Grep App: Developed a java Maven project to perform regex pattern matching on files in a given directory. Leveraged the log4j and slf4j packages to log error messages.
 
 **Springboot App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_AndrewChew/tree/master/springboot)]: Not Started
 
@@ -48,7 +48,7 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_AndrewChew
 
 ## Professional Experiences
 
-**Junior Software & Data Engineer, Jarvis Consulting Group (2021-present)**: Develop software using the SDLC process in an agile work environment, delivering high-quality products.
+**Junior Software & Data Engineer, Jarvis Consulting Group (2021-present)**: Develop software using the SDLC process in an agile work environment, delivering high-quality products. Spearheaded daily scrum meetings as team lead for a sprint.
 
 **Produce Clerk Part-Time, Loblaw Companies Limited (2016-present)**: Advise customers on over 400 products leading to improved customer satisfaction. Effectively handle conflict resolution in a sensitive and professional manner ensuring safety in the workplace. Train new employees for day-to-day operations. Successfully completed diversity training.
 
