@@ -12,4 +12,12 @@ public class OddEven {
   public String oddEvenMod(int i) {
     return i % 2 == 0 ? "even" : "odd";
   }
+
+  /**
+   * Big-O: O(1)
+   * Justification: Comparison takes O(1) time.
+   */
+  public String oddEvenBit(int i) {
+    return (i & 1) == 0 ? "even" : "odd";
+  }
 }
