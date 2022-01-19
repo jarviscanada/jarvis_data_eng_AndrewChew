@@ -5,6 +5,7 @@ What does this app do? What technoglies your have used? (JDBC, PSQL, MVN, etc..)
 # Implementation
 ## ER Diagram
 ER diagram
+![ER diagram](/jdbc/assets/ER_Diagram.png)
 
 ## Design Patterns
 Discuss DAO and Repository design patterns (150-200 words)
