@@ -22,4 +22,13 @@ public class FibonacciTest {
     assertEquals(2, fibonacci.recursiveFib(3));
     assertEquals(55, fibonacci.recursiveFib(10));
   }
+
+  @Test
+  public void dynamicFib() {
+    assertEquals(0, fibonacci.dynamicFib(0));
+    assertEquals(1, fibonacci.dynamicFib(1));
+    assertEquals(1, fibonacci.dynamicFib(2));
+    assertEquals(2, fibonacci.dynamicFib(3));
+    assertEquals(55, fibonacci.dynamicFib(10));
+  }
 }
