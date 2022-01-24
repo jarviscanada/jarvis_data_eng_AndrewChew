@@ -70,4 +70,4 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_AndrewChew
 - UC Dragonboat Club - Participated in club activities in first year of university
 - Shorinji Kan Jiu Jitsu Club - Participated in club activities in first and second year of university including a tournament bout in Kingston
 - Ultimate Frisbee Player - Organized game sessions with friends
-- Nature Enthusiast - Hiked the rockies
+- Nature Enthusiast - Hiked the Rockies
