@@ -27,7 +27,7 @@ docker run --rm \
     grep_app .*Romeo.*Juliet.* /data /log/grep.out
 ```
 
-#Implementation
+# Implementation
 ## Pseudocode
 The `process` method pseudocode.
 ```angular2html
