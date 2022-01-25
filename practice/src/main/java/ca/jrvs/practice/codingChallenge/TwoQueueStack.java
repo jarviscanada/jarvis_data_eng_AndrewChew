@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * https://www.notion.so/jarvisdev/Implement-Stack-using-Queue-ec8f3dddedb84e47a03e2accc14e4ee4
+ * Ticket: https://www.notion.so/jarvisdev/Implement-Stack-using-Queue-ec8f3dddedb84e47a03e2accc14e4ee4
  */
 public class TwoQueueStack {
 
