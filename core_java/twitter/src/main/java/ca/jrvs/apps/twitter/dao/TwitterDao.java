@@ -32,29 +32,29 @@ public class TwitterDao implements CrdDao<Tweet, String> {
    * @return created entity
    */
   @Override
-  public Object create(Object entity) {
+  public Tweet create(Tweet entity) {
     return null;
   }
 
   /**
    * Find an entity(Tweet) by its id
    *
-   * @param o entity id
+   * @param s entity id
    * @return Tweet entity
    */
   @Override
-  public Object findById(Object o) {
+  public Tweet findById(String s) {
     return null;
   }
 
   /**
    * Delete an entity(Tweet) by its ID
    *
-   * @param o of the entity to be deleted
+   * @param s of the entity to be deleted
    * @return deleted entity
    */
   @Override
-  public Object deleteById(Object o) {
+  public Tweet deleteById(String s) {
     return null;
   }
 }
