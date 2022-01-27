@@ -1,11 +1,17 @@
 package ca.jrvs.apps.twitter.dao.helper;
 
+import java.io.IOException;
 import java.net.URI;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
+import oauth.signpost.exception.OAuthException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.springframework.http.HttpMethod;
 
 public class TwitterHttpHelper implements HttpHelper {
 
@@ -31,24 +37,61 @@ public class TwitterHttpHelper implements HttpHelper {
   }
 
   /**
-   * Execute a HTTP Post call
+   * Execute a HTTP POST call.
    *
-   * @param uri
-   * @return
+   * @param uri a uri
+   * @return a HttpResponse
    */
   @Override
   public HttpResponse httpPost(URI uri) {
-    return null;
+    try {
+      return executeHttpRequest(HttpMethod.POST, uri, null);
+    } catch (OAuthException | IOException e) {
+      throw new RuntimeException("Failed to execute", e);
+    }
   }
 
   /**
-   * Execute a HTTP Get call
+   * Execute a HTTP GET call.
    *
-   * @param uri
-   * @return
+   * @param uri a uri
+   * @return a HttpResponse
    */
   @Override
   public HttpResponse httpGet(URI uri) {
-    return null;
+    try {
+      return executeHttpRequest(HttpMethod.GET, uri, null);
+    } catch (OAuthException | IOException e) {
+      throw new RuntimeException("Failed to execute", e);
+    }
   }
+
+  /**
+   * A Helper method to execute HTTP methods.
+   *
+   * @param method HttpMethod to execute
+   * @param uri a uri
+   * @param stringEntity a stringEntity
+   * @return a HttpResponse
+   * @throws OAuthException base exception from OAuth processing
+   * @throws IOException exception from failed I/O operations
+   */
+  public HttpResponse executeHttpRequest(HttpMethod method, URI uri, StringEntity stringEntity)
+      throws OAuthException, IOException {
+    if (method == HttpMethod.GET) {
+      HttpGet request = new HttpGet(uri);
+      consumer.sign(request);
+      return httpClient.execute(request);
+    } else if (method == HttpMethod.POST) {
+      HttpPost request = new HttpPost(uri);
+      if (stringEntity != null) {
+        request.setEntity(stringEntity);
+      }
+      consumer.sign(request);
+      return httpClient.execute(request);
+    } else {
+      throw new IllegalArgumentException("Unknown HTTP method: " + method.name());
+    }
+  }
+
 }
