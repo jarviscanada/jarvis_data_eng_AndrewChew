@@ -14,6 +14,9 @@ public class TwitterDaoIntTest {
 
   private TwitterDao twitterDao;
 
+  private static String id;
+  private static String text;
+
   @Before
   public void setup() {
     String consumerKey = System.getenv("consumerKey");
@@ -31,12 +34,15 @@ public class TwitterDaoIntTest {
   public void create() throws Exception {
     String hashTag = "#abc";
     String text = "@someone some text " + hashTag + " " + System.currentTimeMillis();
-    Double lat = 1d;
     Double lon = -1d;
-    Tweet postTweet = TweetUtil.buildTweet(text, lat, lon);
+    Double lat = 1d;
+    Tweet postTweet = TweetUtil.buildTweet(text, lon, lat);
     System.out.println(JsonUtil.toPrettyJson(postTweet));
 
     Tweet tweet = twitterDao.create(postTweet);
+    System.out.println(JsonUtil.toPrettyJson(tweet));
+    TwitterDaoIntTest.id = tweet.getId_str();
+    TwitterDaoIntTest.text = tweet.getText();
 
     assertEquals(text, tweet.getText());
 
@@ -44,5 +50,34 @@ public class TwitterDaoIntTest {
     assertEquals(2, tweet.getCoordinates().getCoordinates().size());
     assertEquals(lon, tweet.getCoordinates().getCoordinates().get(0));
     assertEquals(lat, tweet.getCoordinates().getCoordinates().get(1));
+  }
+
+  @Test
+  public void findByID() throws Exception {
+    System.out.println(TwitterDaoIntTest.id);
+    Tweet tweet = twitterDao.findById(TwitterDaoIntTest.id);
+    System.out.println(JsonUtil.toPrettyJson(tweet));
+    Double expectedLong = -1d;
+    Double expectedLat = 1d;
+    assertEquals(TwitterDaoIntTest.text, tweet.getText());
+
+    assertNotNull(tweet.getCoordinates());
+    assertEquals(2, tweet.getCoordinates().getCoordinates().size());
+    assertEquals(expectedLong, tweet.getCoordinates().getCoordinates().get(0));
+    assertEquals(expectedLat, tweet.getCoordinates().getCoordinates().get(1));
+  }
+
+  @Test
+  public void deleteById() throws Exception {
+    Tweet tweet = twitterDao.deleteById(TwitterDaoIntTest.id);
+    System.out.println(JsonUtil.toPrettyJson(tweet));
+    Double expectedLong = -1d;
+    Double expectedLat = 1d;
+    assertEquals(TwitterDaoIntTest.text, tweet.getText());
+
+    assertNotNull(tweet.getCoordinates());
+    assertEquals(2, tweet.getCoordinates().getCoordinates().size());
+    assertEquals(expectedLong, tweet.getCoordinates().getCoordinates().get(0));
+    assertEquals(expectedLat, tweet.getCoordinates().getCoordinates().get(1));
   }
 }
