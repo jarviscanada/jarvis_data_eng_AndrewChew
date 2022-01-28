@@ -100,8 +100,8 @@ public class TwitterDao implements CrdDao<Tweet, String> {
     String text = tweet.getText();
     String uriStr = API_BASE_URI + POST_PATH + QUERY_SYM + "status" + EQUAL
         + percentEscaper.escape(text) + AMPERSAND
-        + "lat" + EQUAL + tweet.getCoordinates().getCoordinates().get(0) + AMPERSAND
-        + "long" + EQUAL + tweet.getCoordinates().getCoordinates().get(1);
+        + "long" + EQUAL + tweet.getCoordinates().getCoordinates().get(0) + AMPERSAND
+        + "lat" + EQUAL + tweet.getCoordinates().getCoordinates().get(1);
 
     return new URI(uriStr);
   }

@@ -15,14 +15,15 @@ public class TweetUtil {
    * @param lon longitude
    * @return Tweet object
    */
-  public static Tweet buildTweet(String text, Double lat, Double lon){
-    Tweet tweet = new Tweet();
+  public static Tweet buildTweet(String text, Double lon, Double lat) {
     Coordinates coordinates = new Coordinates();
     List<Double> coords = new ArrayList<>();
-    coords.add(lat);
     coords.add(lon);
+    coords.add(lat);
     coordinates.setCoordinates(coords);
     coordinates.setType("Point");
+
+    Tweet tweet = new Tweet();
     tweet.setText(text);
     tweet.setCoordinates(coordinates);
 
