@@ -99,7 +99,9 @@ public class TwitterDao implements CrdDao<Tweet, String> {
     PercentEscaper percentEscaper = new PercentEscaper("", false);
     String text = tweet.getText();
     String uriStr = API_BASE_URI + POST_PATH + QUERY_SYM + "status" + EQUAL
-        + percentEscaper.escape(text);
+        + percentEscaper.escape(text) + AMPERSAND
+        + "lat" + EQUAL + tweet.getCoordinates().getCoordinates().get(0) + AMPERSAND
+        + "long" + EQUAL + tweet.getCoordinates().getCoordinates().get(1);
 
     return new URI(uriStr);
   }
