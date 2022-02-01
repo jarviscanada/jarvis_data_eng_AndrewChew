@@ -26,7 +26,6 @@ public class TwitterService implements Service {
   @Override
   public Tweet postTweet(Tweet tweet) {
 
-    validateId(tweet.getId_str());
     validateTweetLength(tweet.getText());
     validateCoordinates(tweet.getCoordinates().getCoordinates());
 
