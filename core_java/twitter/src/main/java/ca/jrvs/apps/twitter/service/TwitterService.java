@@ -75,7 +75,7 @@ public class TwitterService implements Service {
    */
   void validateId(String id) {
     try {
-      Integer.parseInt(id);
+      Long.parseLong(id);
     } catch (NumberFormatException e) {
       throw new IllegalArgumentException("Invalid id format", e);
     }
