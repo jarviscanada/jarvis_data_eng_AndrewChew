@@ -27,7 +27,9 @@ public class TwitterService implements Service {
   public Tweet postTweet(Tweet tweet) {
 
     validateTweetLength(tweet.getText());
-    validateCoordinates(tweet.getCoordinates().getCoordinates());
+    if (tweet.getCoordinates() != null) {
+      validateCoordinates(tweet.getCoordinates().getCoordinates());
+    }
 
     return (Tweet) dao.create(tweet);
   }
