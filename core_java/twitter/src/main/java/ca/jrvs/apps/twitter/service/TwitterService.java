@@ -6,11 +6,14 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 
+@org.springframework.stereotype.Service
 public class TwitterService implements Service {
 
   private CrdDao dao;
 
+  @Autowired
   public TwitterService(CrdDao dao) {
     this.dao = dao;
   }
