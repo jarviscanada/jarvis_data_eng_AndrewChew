@@ -9,6 +9,7 @@ import ca.jrvs.apps.twitter.dao.helper.TweetUtil;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
 import ca.jrvs.apps.twitter.model.Tweet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -178,10 +179,21 @@ public class TwitterServiceIntTest {
 
   @Test
   public void thirdDeleteTweetSuccess() {
+    String[] idsArray = ids.values().toArray(new String[0]);
+    List<Tweet> tweetsDeleted = twitterService.deleteTweets(idsArray);
+    assertNotNull(tweetsDeleted.get(0));
+    assertEquals(ids.get(1), tweetsDeleted.get(0).getId_str());
+    assertNotNull(tweetsDeleted.get(0).getText());
+    System.out.println(tweetsDeleted.get(0).getText());
+    assertNotNull(tweetsDeleted.get(1));
+    assertEquals(ids.get(2), tweetsDeleted.get(1).getId_str());
+    assertNotNull(tweetsDeleted.get(1).getText());
+    System.out.println(tweetsDeleted.get(1).getText());
   }
 
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void thirdDeleteTweetFailure() {
-
+    String[] idsArray = {"some id", "1234"};
+    twitterService.deleteTweets(idsArray);
   }
 }
