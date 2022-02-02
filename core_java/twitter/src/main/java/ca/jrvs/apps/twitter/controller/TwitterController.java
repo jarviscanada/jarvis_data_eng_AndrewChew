@@ -60,16 +60,15 @@ public class TwitterController implements Controller {
   @Override
   public Tweet showTweet(String[] args) {
     // Check number of arguments.
-    if (args.length != 3) {
+    if (args.length != 2 && args.length != 3) {
       throw new IllegalArgumentException(
           "USAGE: TwitterCLIApp show \"tweet_id\" \"[field1,field2,...]\"");
     }
 
     String id = args[1];
-    String fields = args[2];
-    String[] fieldsArray = fields.split(COMMA);
+    String[] fields = args.length == 2 ? new String[0] : args[2].split(COMMA);
 
-    return service.showTweet(id, fieldsArray);
+    return service.showTweet(id, fields);
   }
 
   /**
