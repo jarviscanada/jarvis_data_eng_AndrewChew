@@ -51,21 +51,31 @@ public class TwitterController implements Controller {
   }
 
   /**
-   * Parse user argument and search a tweet by calling service classes
+   * Parse user arguments and search a tweet by calling TwitterService.
    *
-   * @param args
+   * @param args user arguments
    * @return a tweet
    * @throws IllegalArgumentException if args are invalid
    */
   @Override
   public Tweet showTweet(String[] args) {
-    return null;
+    // Check number of arguments.
+    if (args.length != 3) {
+      throw new IllegalArgumentException(
+          "USAGE: TwitterCLIApp show \"tweet_id\" \"field1,field2,...\"");
+    }
+
+    String id = args[1];
+    String fields = args[2];
+    String[] fieldsArray = fields.split(COMMA);
+
+    return service.showTweet(id, fieldsArray);
   }
 
   /**
-   * Parse user argument and delete tweets by calling service classes
+   * Parse user arguments and delete tweets by calling TwitterService.
    *
-   * @param args
+   * @param args user arguments
    * @return a list of deleted tweets
    * @throws IllegalArgumentException if args are invalid
    */
