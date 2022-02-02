@@ -7,7 +7,7 @@ import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.service.TwitterService;
-import java.util.HashMap;
+import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class TwitterControllerIntTest {
   private static String id;
 
   @BeforeClass
-  public static void setUp() throws Exception {
+  public static void setUp() {
     String consumerKey = System.getenv("consumerKey");
     String consumerSecret = System.getenv("consumerSecret");
     String accessToken = System.getenv("accessToken");
@@ -123,5 +123,32 @@ public class TwitterControllerIntTest {
 
   @Test
   public void thirdDeleteTweetSuccess() {
+    String[] args = {"delete", id};
+    List<Tweet> actual = twitterController.deleteTweet(args);
+    assertNotNull(actual.get(0));
+    assertNotNull(actual.get(0).getCreated_at());
+    assertNotNull(actual.get(0).getId());
+    assertNotNull(actual.get(0).getId_str());
+    assertNotNull(actual.get(0).getText());
+    assertNotNull(actual.get(0).getEntities());
+    assertNotNull(actual.get(0).getCoordinates());
+    assertNotNull(actual.get(0).getRetweet_count());
+    assertNotNull(actual.get(0).getFavorite_count());
+    assertNotNull(actual.get(0).isFavorited());
+    assertNotNull(actual.get(0).isRetweeted());
+    assertEquals("test tweet", actual.get(0).getText());
+    assertEquals(id, actual.get(0).getId_str());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void thirdDeleteTweetFailureWrongNumArgs() {
+    String[] args = {"delete"};
+    twitterController.deleteTweet(args);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void thirdDeleteTweetFailureInvalidId() {
+    String[] args = {"delete", "some_id"};
+    twitterController.deleteTweet(args);
   }
 }
