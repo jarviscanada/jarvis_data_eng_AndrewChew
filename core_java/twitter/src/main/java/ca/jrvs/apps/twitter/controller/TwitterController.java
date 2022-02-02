@@ -1,5 +1,6 @@
 package ca.jrvs.apps.twitter.controller;
 
+import ca.jrvs.apps.twitter.dao.helper.TweetUtil;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.service.Service;
 import java.util.List;
@@ -16,15 +17,37 @@ public class TwitterController implements Controller {
   }
 
   /**
-   * Parse user argument and post a tweet by calling service classes
+   * Parse user arguments and post a tweet by calling TwitterService.
    *
-   * @param args
+   * @param args user arguments
    * @return a posted tweet
    * @throws IllegalArgumentException if args are invalid
    */
   @Override
   public Tweet postTweet(String[] args) {
-    return null;
+    // Check number of arguments.
+    if (args.length != 3) {
+      throw new IllegalArgumentException(
+          "USAGE: TwitterCLIApp post \"tweet_text\" \"latitude:longitude\"");
+    }
+
+    String text = args[1];
+    String coords = args[2];
+    String[] coordsArray = coords.split(COORD_SEP);
+    // Check text and coordinates format.
+    if (coordsArray.length != 2) {
+      throw new IllegalArgumentException(
+          "Invalid location format\n"
+              + " USAGE: TwitterCLIApp post \"tweet_text\" \"latitude:longitude\"");
+    }
+
+    try {
+      Double lat = Double.parseDouble(coordsArray[0]);
+      Double lon = Double.parseDouble(coordsArray[1]);
+      return service.postTweet(TweetUtil.buildTweet(text, lon, lat));
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException("Invalid location format", e);
+    }
   }
 
   /**
