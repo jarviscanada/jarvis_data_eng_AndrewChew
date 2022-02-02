@@ -65,7 +65,7 @@ public class TwitterService implements Service {
     Arrays.stream(ids).forEach(this::validateId);
 
     // Return list of tweets.
-    return Arrays.stream(ids).map(id -> (Tweet) dao.findById(id)).collect(Collectors.toList());
+    return Arrays.stream(ids).map(id -> (Tweet) dao.deleteById(id)).collect(Collectors.toList());
   }
 
   /**
