@@ -17,6 +17,7 @@ import org.junit.runners.MethodSorters;
 public class TwitterControllerIntTest {
 
   private static TwitterController twitterController;
+  private static String id;
 
   @BeforeClass
   public static void setUp() throws Exception {
@@ -43,6 +44,7 @@ public class TwitterControllerIntTest {
     assertEquals(args[1], actual.getText());
     assertEquals(expectedLon, actual.getCoordinates().getCoordinates().get(0));
     assertEquals(expectedLat, actual.getCoordinates().getCoordinates().get(1));
+    id = actual.getId_str();
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -64,7 +66,59 @@ public class TwitterControllerIntTest {
   }
 
   @Test
-  public void secondShowTweetSuccess() {
+  public void secondShowTweetSuccessAllFields() {
+    String[] args = {"show", id};
+    Tweet actual = twitterController.showTweet(args);
+    assertNotNull(actual);
+    assertNotNull(actual.getCreated_at());
+    assertNotNull(actual.getId());
+    assertNotNull(actual.getId_str());
+    assertNotNull(actual.getText());
+    assertNotNull(actual.getEntities());
+    assertNotNull(actual.getCoordinates());
+    assertNotNull(actual.getRetweet_count());
+    assertNotNull(actual.getFavorite_count());
+    assertNotNull(actual.isFavorited());
+    assertNotNull(actual.isRetweeted());
+    assertEquals("test tweet", actual.getText());
+    assertEquals(id, actual.getId_str());
+  }
+
+  @Test
+  public void secondShowTweetSuccessSomeFields() {
+    String[] args = {"show", id, "id_str,text"};
+    Tweet actual = twitterController.showTweet(args);
+    assertNotNull(actual);
+    assertNull(actual.getCreated_at());
+    assertNull(actual.getId());
+    assertNotNull(actual.getId_str());
+    assertNotNull(actual.getText());
+    assertNull(actual.getEntities());
+    assertNull(actual.getCoordinates());
+    assertNull(actual.getRetweet_count());
+    assertNull(actual.getFavorite_count());
+    assertNull(actual.isFavorited());
+    assertNull(actual.isRetweeted());
+    assertEquals("test tweet", actual.getText());
+    assertEquals(id, actual.getId_str());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void secondShowTweetFailureWrongNumArgs() {
+    String[] args = {"show"};
+    twitterController.showTweet(args);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void secondShowTweetFailureInvalidId() {
+    String[] args = {"show", "some_id"};
+    twitterController.showTweet(args);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void secondShowTweetFailureInvalidField() {
+    String[] args = {"show", id, "some_field"};
+    twitterController.showTweet(args);
   }
 
   @Test
