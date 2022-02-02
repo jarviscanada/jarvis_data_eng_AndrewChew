@@ -62,7 +62,7 @@ public class TwitterController implements Controller {
     // Check number of arguments.
     if (args.length != 3) {
       throw new IllegalArgumentException(
-          "USAGE: TwitterCLIApp show \"tweet_id\" \"field1,field2,...\"");
+          "USAGE: TwitterCLIApp show \"tweet_id\" \"[field1,field2,...]\"");
     }
 
     String id = args[1];
@@ -81,6 +81,15 @@ public class TwitterController implements Controller {
    */
   @Override
   public List<Tweet> deleteTweet(String[] args) {
-    return null;
+    // Check number of arguments.
+    if (args.length != 2) {
+      throw new IllegalArgumentException(
+          "USAGE: TwitterCLIApp delete \"[id1,id2,...]\"");
+    }
+
+    String ids = args[1];
+    String[] idsArray = ids.split(COMMA);
+
+    return service.deleteTweets(idsArray);
   }
 }
