@@ -19,9 +19,9 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_AndrewChew
 
 **Core Java Apps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_AndrewChew/tree/master/core_java)]:
       
-  - Twitter App: Not Started
+  - Twitter App: Developed a Java Maven project that utilizes the Twitter REST API to post, find, and delete tweets via the CLI adhering to DAO and MVC design patterns. Implemented a simplified version of the Tweet object, utilizing the Jackson JSON library to process JSON strings. Performed integration and unit testing using JUnit 4 and Mockito. Deployed the app online as a Docker image..
   - JDBC App: Developed a Java Maven project to implement DAO patterns to CRUD to and from a PostgreSQL database provisioned using Docker. Leveraged JDBC to setup connections between the app and the RDBMS.
-  - Grep App: Developed a Java Maven project to perform regex pattern matching on files in a given directory recursively. Leveraged new Java 8 features including the Stream API and Lambda expressions to implement the same functionality with improved performance. Utilized the log4j and slf4j packages to log error messages.
+  - Grep App: Developed a Java Maven project to perform regex pattern matching on files in a given directory recursively. Leveraged new Java 8 features including the Stream API and Lambda expressions to implement the same functionality with improved performance. Utilized the log4j and slf4j packages to log error messages. Performed manual testing and unit testing using JUnit 4. Deployed the app online as a Docker image.
 
 **Springboot App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_AndrewChew/tree/master/springboot)]: Not Started
 
