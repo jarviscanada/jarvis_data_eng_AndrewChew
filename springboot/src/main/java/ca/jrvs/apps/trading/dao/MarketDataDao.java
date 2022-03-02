@@ -2,12 +2,17 @@ package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.config.MarketDataConfig;
 import ca.jrvs.apps.trading.model.domain.IexQuote;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,9 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
 
   private Logger logger = LoggerFactory.getLogger(MarketDataDao.class);
   private HttpClientConnectionManager httpClientConnectionManager;
+
+  private static final int HTTP_OK = 200;
+  private static final int HTTP_NOT_FOUND = 404;
 
   @Autowired
   public MarketDataDao(HttpClientConnectionManager httpClientConnectionManager,
@@ -78,7 +86,31 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
    * @return HTTP response string or Optional.empty() for 404 response
    */
   public Optional<String> executeHttpGet(String url) {
-    return null;
+    Optional<String> jsonString;
+    HttpClient httpClient = this.getHttpClient();
+    HttpGet request = new HttpGet(url);
+    HttpResponse response;
+
+    try {
+      response = httpClient.execute(request);
+    } catch (IOException e) {
+      throw new DataRetrievalFailureException("HTTP failed", e);
+    }
+
+    int status = response.getStatusLine().getStatusCode();
+    if (status == HTTP_OK) {
+      try {
+        jsonString = Optional.of(EntityUtils.toString(response.getEntity()));
+      } catch (IOException e) {
+        throw new DataRetrievalFailureException("Failed to convert entity to json String", e);
+      }
+    } else if (status == HTTP_NOT_FOUND) {
+      jsonString = Optional.empty();
+    } else {
+      throw new DataRetrievalFailureException("Unexpected HTTP status:" + status);
+    }
+
+    return jsonString;
   }
 
   /**
