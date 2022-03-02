@@ -94,6 +94,7 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
     try {
       response = httpClient.execute(request);
     } catch (IOException e) {
+      logger.error("HTTP failed", e);
       throw new DataRetrievalFailureException("HTTP failed", e);
     }
 
@@ -102,11 +103,13 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
       try {
         jsonString = Optional.of(EntityUtils.toString(response.getEntity()));
       } catch (IOException e) {
+        logger.error("Failed to convert entity to json String", e);
         throw new DataRetrievalFailureException("Failed to convert entity to json String", e);
       }
     } else if (status == HTTP_NOT_FOUND) {
       jsonString = Optional.empty();
     } else {
+      logger.error("Unexpected HTTP status:" + status);
       throw new DataRetrievalFailureException("Unexpected HTTP status:" + status);
     }
 
