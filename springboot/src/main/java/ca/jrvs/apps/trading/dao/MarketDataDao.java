@@ -2,8 +2,11 @@ package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.config.MarketDataConfig;
 import ca.jrvs.apps.trading.model.domain.IexQuote;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import org.apache.http.HttpResponse;
@@ -13,6 +16,7 @@ import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +50,9 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
    * Get an IexQuote.
    *
    * @param ticker ticker string
+   * @return an IexQuote
    * @throws IllegalArgumentException if a given ticker is invalid
    * @throws DataRetrievalFailureException if HTTP request failed
-   * @return an IexQuote
    */
   @Override
   public Optional<IexQuote> findById(String ticker) {
@@ -69,21 +73,52 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
    * Get IexQuotes.
    *
    * @param tickers list of ticker strings
+   * @return a list of IexQuotes
    * @throws IllegalArgumentException if any ticker is invalid or tickers is empty
    * @throws DataRetrievalFailureException if HTTP request failed
-   * @return a list of IexQuotes
    */
   @Override
   public List<IexQuote> findAllById(Iterable<String> tickers) {
-    return null;
+    // Build ticker string.
+    StringBuilder allTickers = new StringBuilder();
+    for (Iterator<String> iterator = tickers.iterator(); iterator.hasNext(); ) {
+      String ticker = iterator.next();
+      allTickers.append(ticker);
+      if (iterator.hasNext()) {
+        allTickers.append(",");
+      }
+    }
+
+    Optional<String> jsonString = executeHttpGet(String.format(IEX_BATCH_URL, allTickers));
+
+    if (jsonString.isPresent()) {
+      JSONObject iexQuotesJson = new JSONObject(jsonString);
+      ObjectMapper objectMapper = new ObjectMapper();
+      List<IexQuote> quotes = new ArrayList<>(iexQuotesJson.length());
+      Iterator<String> keys = iexQuotesJson.keys();
+
+      while (keys.hasNext()) {
+        String key = keys.next();
+        try {
+          quotes.add(objectMapper.readValue(iexQuotesJson.getString(key), IexQuote.class));
+        } catch (IOException e) {
+          logger.error("Failed to convert json to IexQuote object", e);
+          throw new RuntimeException("Failed to convert json to IexQuote object", e);
+        }
+      }
+      return quotes;
+    } else {
+      logger.error("Invalid ticker");
+      throw new IllegalArgumentException("Invalid ticker");
+    }
   }
 
   /**
    * Execute a HTTP GET and return HTTP entity as a string.
    *
    * @param url resource URL
-   * @throws DataRetrievalFailureException if HTTP failed or status code is unexpected
    * @return HTTP response string or Optional.empty() for 404 response
+   * @throws DataRetrievalFailureException if HTTP failed or status code is unexpected
    */
   public Optional<String> executeHttpGet(String url) {
     Optional<String> jsonString;
