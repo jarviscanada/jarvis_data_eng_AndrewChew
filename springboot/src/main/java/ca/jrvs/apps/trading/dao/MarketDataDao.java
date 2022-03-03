@@ -81,7 +81,8 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
   public List<IexQuote> findAllById(Iterable<String> tickers) {
     // Build ticker string.
     StringBuilder allTickers = new StringBuilder();
-    for (Iterator<String> iterator = tickers.iterator(); iterator.hasNext(); ) {
+    int expectedQuotes = 0;
+    for (Iterator<String> iterator = tickers.iterator(); iterator.hasNext(); expectedQuotes++) {
       String ticker = iterator.next();
       allTickers.append(ticker);
       if (iterator.hasNext()) {
@@ -92,7 +93,7 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
     Optional<String> jsonString = executeHttpGet(String.format(IEX_BATCH_URL, allTickers));
 
     if (jsonString.isPresent()) {
-      JSONObject iexQuotesJson = new JSONObject(jsonString);
+      JSONObject iexQuotesJson = new JSONObject(jsonString.get());
       ObjectMapper objectMapper = new ObjectMapper();
       List<IexQuote> quotes = new ArrayList<>(iexQuotesJson.length());
       Iterator<String> keys = iexQuotesJson.keys();
@@ -100,12 +101,19 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
       while (keys.hasNext()) {
         String key = keys.next();
         try {
-          quotes.add(objectMapper.readValue(iexQuotesJson.getString(key), IexQuote.class));
+          quotes.add(objectMapper.readValue(
+              iexQuotesJson.getJSONObject(key).get("quote").toString(), IexQuote.class));
         } catch (IOException e) {
           logger.error("Failed to convert json to IexQuote object", e);
           throw new RuntimeException("Failed to convert json to IexQuote object", e);
         }
       }
+
+      // Check if all quotes returned.
+      if (quotes.size() != expectedQuotes) {
+        throw new IllegalArgumentException("Invalid ticker");
+      }
+
       return quotes;
     } else {
       logger.error("Invalid ticker");
