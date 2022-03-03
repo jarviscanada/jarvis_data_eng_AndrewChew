@@ -18,12 +18,12 @@ public class QuoteService {
 
   private static final Logger logger = LoggerFactory.getLogger(QuoteService.class);
 
-  private QuoteDao quoteDao;
+  //private QuoteDao quoteDao;
   private MarketDataDao marketDataDao;
 
   @Autowired
-  public QuoteService(QuoteDao quoteDao, MarketDataDao marketDataDao) {
-    this.quoteDao = quoteDao;
+  public QuoteService(/** QuoteDao quoteDao, **/ MarketDataDao marketDataDao) {
+    //this.quoteDao = quoteDao;
     this.marketDataDao = marketDataDao;
   }
 
