@@ -35,7 +35,7 @@ public class MarketDataDaoIntTest {
 
     // Sad path.
     try {
-      dao.findAllById(Arrays.asList("AAPL", "FB"));
+      dao.findAllById(Arrays.asList("AAPL", "FB2"));
       fail();
     } catch (IllegalArgumentException e) {
       assertTrue(true);
