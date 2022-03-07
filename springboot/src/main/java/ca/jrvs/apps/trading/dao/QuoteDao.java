@@ -87,8 +87,8 @@ public class QuoteDao implements CrudRepository<Quote, String> {
    * @return sql update value objects
    */
   private Object[] makeUpdateValues(Quote quote) {
-    // TODO
-    return null;
+    return new Object[]{quote.getLastPrice(), quote.getBidPrice(), quote.getBidSize(),
+        quote.getAskPrice(), quote.getAskSize(), quote.getId()};
   }
 
   @Override
