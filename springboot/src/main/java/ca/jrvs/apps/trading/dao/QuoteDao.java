@@ -1,6 +1,7 @@
 package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.domain.Quote;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.sql.DataSource;
@@ -93,8 +94,10 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
   @Override
   public <S extends Quote> List<S> saveAll(Iterable<S> quotes) {
-    // TODO
-    return null;
+    List<S> quotesList = new ArrayList<>();
+    quotes.forEach(this::save);
+    quotes.forEach(quotesList::add);
+    return quotesList;
   }
 
   /**
