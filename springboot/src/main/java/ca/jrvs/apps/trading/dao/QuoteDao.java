@@ -135,12 +135,11 @@ public class QuoteDao implements CrudRepository<Quote, String> {
    * Returns all quotes.
    *
    * @return List of all quotes
-   * @throws DataAccessException if failed to update
    */
   @Override
   public List<Quote> findAll() {
-    // TODO
-    return null;
+    String selectSql = "SELECT * FROM " + TABLE_NAME;
+    return jdbcTemplate.query(selectSql, BeanPropertyRowMapper.newInstance(Quote.class));
   }
 
   @Override
