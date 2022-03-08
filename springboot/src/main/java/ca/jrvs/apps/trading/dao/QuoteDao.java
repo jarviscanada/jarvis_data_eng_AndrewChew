@@ -10,8 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataRetrievalFailureException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -108,8 +110,20 @@ public class QuoteDao implements CrudRepository<Quote, String> {
    */
   @Override
   public Optional<Quote> findById(String ticker) {
-    // TODO
-    return Optional.empty();
+    Quote quote = null;
+    String selectSql = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COLUMN_NAME + " =?";
+
+    try {
+      quote = jdbcTemplate
+          .queryForObject(selectSql, BeanPropertyRowMapper.newInstance(Quote.class), ticker);
+    } catch (EmptyResultDataAccessException e) {
+      logger.debug("Can't find ticker: " + ticker, e);
+    }
+    if (quote == null) {
+      return Optional.empty();
+    }
+
+    return Optional.of(quote);
   }
 
   @Override
