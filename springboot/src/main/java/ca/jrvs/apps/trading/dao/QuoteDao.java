@@ -149,8 +149,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
   @Override
   public long count() {
-    // TODO
-    return 0;
+    return findAll().size();
   }
 
   @Override
