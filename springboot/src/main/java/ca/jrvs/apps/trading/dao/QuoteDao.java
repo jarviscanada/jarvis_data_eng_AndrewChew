@@ -127,9 +127,8 @@ public class QuoteDao implements CrudRepository<Quote, String> {
   }
 
   @Override
-  public boolean existsById(String s) {
-    // TODO
-    return false;
+  public boolean existsById(String ticker) {
+    return findById(ticker).isPresent();
   }
 
   /**
