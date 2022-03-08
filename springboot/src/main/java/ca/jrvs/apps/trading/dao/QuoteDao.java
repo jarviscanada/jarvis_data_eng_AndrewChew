@@ -154,7 +154,8 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
   @Override
   public void deleteById(String ticker) {
-    // TODO
+    String deleteSql = "DELETE FROM " + TABLE_NAME + " WHERE " + ID_COLUMN_NAME + " =?";
+    jdbcTemplate.update(deleteSql, ticker);
   }
 
   @Override
