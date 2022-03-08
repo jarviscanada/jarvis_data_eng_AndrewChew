@@ -170,6 +170,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
   @Override
   public void deleteAll() {
-    // TODO
+    String deleteSql = "DELETE FROM " + TABLE_NAME;
+    jdbcTemplate.update(deleteSql);
   }
 }
