@@ -53,8 +53,7 @@ public class QuoteServiceIntTest {
     List<Double> beforeUpdatePrices = new ArrayList<>();
     quotes.forEach(quote -> beforeUpdatePrices.add(quote.getLastPrice()));
     Thread.sleep(30000);
-    quoteService.updateMarketData();
-    quotes = quoteService.findAllQuotes();
+    quotes = quoteService.updateMarketData();
     List<Double> afterUpdatePrices = new ArrayList<>();
     quotes.forEach(quote -> afterUpdatePrices.add(quote.getLastPrice()));
     assertNotEquals(beforeUpdatePrices, afterUpdatePrices);
