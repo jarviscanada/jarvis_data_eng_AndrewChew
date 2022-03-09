@@ -54,8 +54,15 @@ public class QuoteService {
    * @return converted Quote entity
    */
   protected static Quote buildQuoteFromIexQuote(IexQuote iexQuote) {
-    // TODO
-    return null;
+    Quote quote = new Quote();
+    quote.setAskPrice(iexQuote.getIexAskPrice());
+    quote.setAskSize(iexQuote.getIexAskSize());
+    quote.setBidPrice(iexQuote.getIexBidPrice());
+    quote.setBidSize(iexQuote.getIexBidSize());
+    quote.setId(iexQuote.getSymbol());
+    quote.setLastPrice(
+        iexQuote.getLatestPrice() == null ? iexQuote.getClose() : iexQuote.getLatestPrice());
+    return quote;
   }
 
   /**
