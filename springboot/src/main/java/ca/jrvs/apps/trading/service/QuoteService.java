@@ -4,6 +4,7 @@ import ca.jrvs.apps.trading.dao.MarketDataDao;
 import ca.jrvs.apps.trading.dao.QuoteDao;
 import ca.jrvs.apps.trading.model.domain.IexQuote;
 import ca.jrvs.apps.trading.model.domain.Quote;
+import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.slf4j.Logger;
@@ -76,16 +77,18 @@ public class QuoteService {
    * @throws IllegalArgumentException if ticker is not found from IEX
    */
   public List<Quote> saveQuotes(List<String> tickers) {
-    // TODO
-    return null;
+    List<Quote> quotes = new ArrayList<>();
+    tickers.forEach(quote -> quotes.add(saveQuote(quote)));
+    return quotes;
   }
 
   /**
    * Helper method to save Quote.
    */
   public Quote saveQuote(String ticker) {
-    // TODO
-    return null;
+    IexQuote iexQuote = findIexQuoteByTicker(ticker);
+    Quote quote = buildQuoteFromIexQuote(iexQuote);
+    return saveQuote(quote);
   }
 
   /**
