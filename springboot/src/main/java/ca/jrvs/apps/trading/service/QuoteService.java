@@ -39,12 +39,14 @@ public class QuoteService {
    *  - Convert IexQuote to Quote entity
    *  - Persist Quote to database
    *
-   * @throws ResourceNotFoundException if ticker is not found from IEX
    * @throws DataAccessException if unable to retrieve data
    * @throws IllegalArgumentException for invalid input
    */
   public void updateMarketData() {
-    // TODO
+    List<Quote> quotes = findAllQuotes();
+    List<String> tickers = new ArrayList<>();
+    quotes.forEach(quote -> tickers.add(quote.getId()));
+    saveQuotes(tickers);
   }
 
   /**
