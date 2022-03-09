@@ -53,6 +53,7 @@ public class QuoteController {
       notes = "Update all quotes in the quote table. Use IEX trading API as market data source.")
   @PutMapping(path = "/iexMarketData")
   @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
   public List<Quote> updateMarketData() {
     try {
       return quoteService.updateMarketData();
