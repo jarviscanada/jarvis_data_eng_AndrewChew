@@ -68,7 +68,6 @@ public class QuoteDaoIntTest {
   @Test
   public void findAll() {
     Quote quote = new Quote();
-    quote = new Quote();
     quote.setAskPrice(5d);
     quote.setAskSize(5);
     quote.setBidPrice(5.2d);
