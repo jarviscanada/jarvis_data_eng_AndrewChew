@@ -41,12 +41,13 @@ public class QuoteService {
    *
    * @throws DataAccessException if unable to retrieve data
    * @throws IllegalArgumentException for invalid input
+   * @return list of updated Quotes
    */
-  public void updateMarketData() {
+  public List<Quote> updateMarketData() {
     List<Quote> quotes = findAllQuotes();
     List<String> tickers = new ArrayList<>();
     quotes.forEach(quote -> tickers.add(quote.getId()));
-    saveQuotes(tickers);
+    return saveQuotes(tickers);
   }
 
   /**
