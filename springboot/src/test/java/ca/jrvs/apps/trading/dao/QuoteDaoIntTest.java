@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {TestConfig.class})
 @Sql({"classpath:schema.sql"})
-public class QuoteDaoTest {
+public class QuoteDaoIntTest {
 
   @Autowired
   private QuoteDao quoteDao;
