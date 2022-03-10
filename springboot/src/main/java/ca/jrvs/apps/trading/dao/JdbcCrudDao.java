@@ -2,7 +2,6 @@ package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.domain.Entity;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -73,9 +72,8 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
     String selectSql = "SELECT * FROM " + getTableName() + " WHERE " + getIdColumnName() + " =?";
 
     try {
-      entity = Optional.ofNullable((T) getJdbcTemplate()
-          .queryForObject(selectSql,
-              BeanPropertyRowMapper.newInstance(getEntityClass()), id));
+      entity = Optional.ofNullable(getJdbcTemplate().queryForObject(
+          selectSql, BeanPropertyRowMapper.newInstance(getEntityClass()), id));
     } catch (IncorrectResultSizeDataAccessException e) {
       logger.debug("Can't find entity id: " + id, e);
     }
@@ -106,7 +104,8 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
 
   @Override
   public long count() {
-    return 0;
+    String selectSql = "SELECT COUNT(*) FROM " + getTableName();
+    return getJdbcTemplate().queryForObject(selectSql, Long.class);
   }
 
   @Override
