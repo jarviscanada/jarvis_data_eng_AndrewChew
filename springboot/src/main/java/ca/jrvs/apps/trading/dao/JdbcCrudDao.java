@@ -1,6 +1,7 @@
 package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.domain.Entity;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,8 +86,10 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
   }
 
   @Override
-  public Iterable<T> findAll() {
-    return null;
+  public List<T> findAll() {
+    String selectSql = "SELECT * FROM " + getTableName();
+    return getJdbcTemplate()
+        .query(selectSql, BeanPropertyRowMapper.newInstance(getEntityClass()));
   }
 
   @Override
