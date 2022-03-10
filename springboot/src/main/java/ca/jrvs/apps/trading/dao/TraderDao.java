@@ -1,5 +1,6 @@
 package ca.jrvs.apps.trading.dao;
 
+import ca.jrvs.apps.trading.model.domain.Trader;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
