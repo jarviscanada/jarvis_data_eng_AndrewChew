@@ -80,8 +80,8 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
   }
 
   @Override
-  public boolean existsById(Integer integer) {
-    return false;
+  public boolean existsById(Integer id) {
+    return findById(id).isPresent();
   }
 
   @Override
