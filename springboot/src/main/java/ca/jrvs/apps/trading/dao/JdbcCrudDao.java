@@ -1,6 +1,8 @@
 package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.domain.Entity;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -18,13 +20,13 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
 
   private static final Logger logger = LoggerFactory.getLogger(JdbcCrudDao.class);
 
-  abstract public JdbcTemplate getJdbcTemplate();
+  public abstract JdbcTemplate getJdbcTemplate();
 
-  abstract public SimpleJdbcInsert getSimpleJdbcInsert();
+  public abstract SimpleJdbcInsert getSimpleJdbcInsert();
 
-  abstract public String getTableName();
+  public abstract String getTableName();
 
-  abstract public String getIdColumnName();
+  public abstract String getIdColumnName();
 
   abstract Class<T> getEntityClass();
 
@@ -58,7 +60,7 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
   /**
    * Helper method to update an entity.
    */
-  abstract public int updateOne(T entity);
+  public abstract int updateOne(T entity);
 
   @Override
   public <S extends T> Iterable<S> saveAll(Iterable<S> iterable) {
@@ -93,8 +95,13 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
   }
 
   @Override
-  public Iterable<T> findAllById(Iterable<Integer> iterable) {
-    return null;
+  public List<T> findAllById(Iterable<Integer> ids) {
+    List<T> entities = new ArrayList<>();
+    for (Integer id : ids) {
+      Optional<T> entity = findById(id);
+      entity.ifPresent(entities::add);
+    }
+    return entities;
   }
 
   @Override
