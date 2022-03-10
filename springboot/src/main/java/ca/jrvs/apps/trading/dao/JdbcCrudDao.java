@@ -109,8 +109,9 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
   }
 
   @Override
-  public void deleteById(Integer integer) {
-
+  public void deleteById(Integer id) {
+    String deleteSql = "DELETE FROM " + getTableName() + " WHERE " + getIdColumnName() + " =?";
+    getJdbcTemplate().update(deleteSql, id);
   }
 
   @Override
