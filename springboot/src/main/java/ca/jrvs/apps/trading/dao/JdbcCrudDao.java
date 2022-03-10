@@ -116,16 +116,17 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
 
   @Override
   public void delete(T t) {
-
+    throw new UnsupportedOperationException("Not implemented");
   }
 
   @Override
   public void deleteAll(Iterable<? extends T> iterable) {
-
+    throw new UnsupportedOperationException("Not implemented");
   }
 
   @Override
   public void deleteAll() {
-
+    String deleteSql = "DELETE FROM " + getTableName();
+    getJdbcTemplate().update(deleteSql);
   }
 }
