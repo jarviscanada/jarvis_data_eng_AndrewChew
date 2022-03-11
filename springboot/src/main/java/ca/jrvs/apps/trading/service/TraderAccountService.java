@@ -89,8 +89,17 @@ public class TraderAccountService {
    * @throws IllegalArgumentException if traderId is null or not found or fund is <= 0
    */
   public Account deposit(Integer traderId, Double fund) {
-    // TODO
-    return null;
+    if (traderId == null) {
+      throw new IllegalArgumentException("traderId cannot be null");
+    } else if (!traderExists(traderId)) {
+      throw new IllegalArgumentException("Trader: " + traderId + "cannot be found");
+    } else if (fund <= 0) {
+      throw new IllegalArgumentException("Fund cannot be <= 0");
+    } else {
+      Account account = accountDao.findById(traderId).get();
+      account.setAmount(account.getAmount() + fund);
+      return accountDao.save(account);
+    }
   }
 
   /**
@@ -106,8 +115,21 @@ public class TraderAccountService {
    *                                  insufficient funds
    */
   public Account withdraw(Integer traderId, Double fund) {
-    // TODO
-    return null;
+    if (traderId == null) {
+      throw new IllegalArgumentException("traderId cannot be null");
+    } else if (!traderExists(traderId)) {
+      throw new IllegalArgumentException("Trader: " + traderId + "cannot be found");
+    } else if (fund <= 0) {
+      throw new IllegalArgumentException("Fund cannot be <= 0");
+    } else {
+      Account account = accountDao.findById(traderId).get();
+      Double newAmount = account.getAmount() - fund;
+      if (newAmount < 0) {
+        throw new IllegalArgumentException("Insufficient funds for withdrawal");
+      }
+      account.setAmount(newAmount);
+      return accountDao.save(account);
+    }
   }
 
   /**
@@ -141,7 +163,7 @@ public class TraderAccountService {
    * Helper method to create a new TraderAccountView for trader and account.
    */
   private TraderAccountView createNewTraderAccountView(Trader trader, Account account) {
-    TraderAccountView newTraderAccountView= new TraderAccountView();
+    TraderAccountView newTraderAccountView = new TraderAccountView();
     newTraderAccountView.setTrader(trader);
     newTraderAccountView.setAccount(account);
     return newTraderAccountView;
