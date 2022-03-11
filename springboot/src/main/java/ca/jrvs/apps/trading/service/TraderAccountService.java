@@ -66,9 +66,9 @@ public class TraderAccountService {
       throw new IllegalArgumentException("traderId cannot be null");
     } else if (!traderExists(traderId)) {
       throw new IllegalArgumentException("Trader: " + traderId + "cannot be found");
-    } else if (!isEmptyAccount(traderId)) {
+    } else if (hasAccountBalance(traderId)) {
       throw new IllegalArgumentException("Trader's account must have 0 cash balance");
-    } else if (!allPositionsClosed(traderId)) {
+    } else if (hasOpenPosition(traderId)) {
       throw new IllegalArgumentException("Trader: " + traderId + "has open positions");
     } else {
       deleteTraderSecurityOrders(traderId);
@@ -110,16 +110,25 @@ public class TraderAccountService {
     return null;
   }
 
+  /**
+   * Helper method to check if Trader with id traderId is valid.
+   */
   public boolean isValidTrader(Trader trader) {
     return trader.getId() == null && trader.getCountry() != null && trader.getDob() != null
         && trader.getEmail() != null && trader.getFirstName() != null
         && trader.getLastName() != null;
   }
 
+  /**
+   * Helper method to check if Trader with id traderId exists.
+   */
   private boolean traderExists(Integer traderId) {
     return traderDao.existsById(traderId);
   }
 
+  /**
+   * Helper method to create a new account for Trader with id traderId.
+   */
   private Account createNewAccount(Integer traderId) {
     Account newAccount = new Account();
     newAccount.setId(traderId);
@@ -128,6 +137,9 @@ public class TraderAccountService {
     return newAccount;
   }
 
+  /**
+   * Helper method to create a new TraderAccountView for trader and account.
+   */
   private TraderAccountView createNewTraderAccountView(Trader trader, Account account) {
     TraderAccountView newTraderAccountView= new TraderAccountView();
     newTraderAccountView.setTrader(trader);
@@ -135,19 +147,28 @@ public class TraderAccountService {
     return newTraderAccountView;
   }
 
-  private boolean isEmptyAccount(Integer traderId) {
-    return accountDao.findById(traderId).get().getAmount() == 0;
+  /**
+   * Helper method to check if Trader with traderId has an account balance.
+   */
+  private boolean hasAccountBalance(Integer traderId) {
+    return accountDao.findById(traderId).get().getAmount() != 0;
   }
 
-  private boolean allPositionsClosed(Integer traderId) {
+  /**
+   * Helper method to check if Trader with traderId has open positions.
+   */
+  private boolean hasOpenPosition(Integer traderId) {
     List<SecurityOrder> securityOrders = securityOrderDao.findAll();
     long openPositions = securityOrders.stream()
         .filter(securityOrder -> securityOrder.getAccountId().equals(traderId))
         .filter(securityOrder -> securityOrder.getStatus().equals("PENDING"))
         .count();
-    return openPositions == 0;
+    return openPositions != 0;
   }
 
+  /**
+   * Helper method to delete every SecurityOrder that belongs to the Trader with id traderId.
+   */
   private void deleteTraderSecurityOrders(Integer traderId) {
     List<SecurityOrder> securityOrders = securityOrderDao.findAll();
     securityOrders.stream()
