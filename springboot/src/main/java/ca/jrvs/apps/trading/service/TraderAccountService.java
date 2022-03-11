@@ -6,6 +6,7 @@ import ca.jrvs.apps.trading.dao.SecurityOrderDao;
 import ca.jrvs.apps.trading.dao.TraderDao;
 import ca.jrvs.apps.trading.model.domain.Account;
 import ca.jrvs.apps.trading.model.domain.Trader;
+import ca.jrvs.apps.trading.model.domain.TraderAccountView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,8 +40,13 @@ public class TraderAccountService {
    * @throws IllegalArgumentException if a trader has null fields or id is not null
    */
   public TraderAccountView createTraderAndAccount(Trader trader) {
-    // TODO
-    return null;
+    if (!isValidTrader(trader)) {
+      throw new IllegalArgumentException(
+          "Invalid trader: all fields must be non-null except for id");
+    }
+    Trader newTrader = traderDao.save(trader);
+    Account newAccount = accountDao.save(createNewAccount(newTrader.getId()));
+    return createNewTraderAccountView(newTrader, newAccount);
   }
 
   /**
@@ -88,5 +94,30 @@ public class TraderAccountService {
   public Account withdraw(Integer traderId, Double fund) {
     // TODO
     return null;
+  }
+
+  public boolean isValidTrader(Trader trader) {
+    return trader.getId() == null && trader.getCountry() != null && trader.getDob() != null
+        && trader.getEmail() != null && trader.getFirstName() != null
+        && trader.getLastName() != null;
+  }
+
+  public boolean traderExists(Integer traderId) {
+    return traderDao.existsById(traderId);
+  }
+
+  public Account createNewAccount(Integer traderId) {
+    Account newAccount = new Account();
+    newAccount.setId(traderId);
+    newAccount.setAmount(0.0d);
+    newAccount.setTraderId(traderId);
+    return newAccount;
+  }
+
+  public TraderAccountView createNewTraderAccountView(Trader trader, Account account) {
+    TraderAccountView newTraderAccountView= new TraderAccountView();
+    newTraderAccountView.setTrader(trader);
+    newTraderAccountView.setAccount(account);
+    return newTraderAccountView;
   }
 }
