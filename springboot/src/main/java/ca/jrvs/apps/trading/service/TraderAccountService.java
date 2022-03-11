@@ -5,8 +5,10 @@ import ca.jrvs.apps.trading.dao.PositionDao;
 import ca.jrvs.apps.trading.dao.SecurityOrderDao;
 import ca.jrvs.apps.trading.dao.TraderDao;
 import ca.jrvs.apps.trading.model.domain.Account;
+import ca.jrvs.apps.trading.model.domain.SecurityOrder;
 import ca.jrvs.apps.trading.model.domain.Trader;
 import ca.jrvs.apps.trading.model.domain.TraderAccountView;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +62,19 @@ public class TraderAccountService {
    * @throws IllegalArgumentException if traderId is null or not found or unable to delete
    */
   public void deleteTraderById(Integer traderId) {
-    // TODO
+    if (traderId == null) {
+      throw new IllegalArgumentException("traderId cannot be null");
+    } else if (!traderExists(traderId)) {
+      throw new IllegalArgumentException("Trader: " + traderId + "cannot be found");
+    } else if (!isEmptyAccount(traderId)) {
+      throw new IllegalArgumentException("Trader's account must have 0 cash balance");
+    } else if (!allPositionsClosed(traderId)) {
+      throw new IllegalArgumentException("Trader: " + traderId + "has open positions");
+    } else {
+      deleteTraderSecurityOrders(traderId);
+      accountDao.deleteById(traderId);
+      traderDao.deleteById(traderId);
+    }
   }
 
   /**
@@ -102,11 +116,11 @@ public class TraderAccountService {
         && trader.getLastName() != null;
   }
 
-  public boolean traderExists(Integer traderId) {
+  private boolean traderExists(Integer traderId) {
     return traderDao.existsById(traderId);
   }
 
-  public Account createNewAccount(Integer traderId) {
+  private Account createNewAccount(Integer traderId) {
     Account newAccount = new Account();
     newAccount.setId(traderId);
     newAccount.setAmount(0.0d);
@@ -114,10 +128,30 @@ public class TraderAccountService {
     return newAccount;
   }
 
-  public TraderAccountView createNewTraderAccountView(Trader trader, Account account) {
+  private TraderAccountView createNewTraderAccountView(Trader trader, Account account) {
     TraderAccountView newTraderAccountView= new TraderAccountView();
     newTraderAccountView.setTrader(trader);
     newTraderAccountView.setAccount(account);
     return newTraderAccountView;
+  }
+
+  private boolean isEmptyAccount(Integer traderId) {
+    return accountDao.findById(traderId).get().getAmount() == 0;
+  }
+
+  private boolean allPositionsClosed(Integer traderId) {
+    List<SecurityOrder> securityOrders = securityOrderDao.findAll();
+    long openPositions = securityOrders.stream()
+        .filter(securityOrder -> securityOrder.getAccountId().equals(traderId))
+        .filter(securityOrder -> securityOrder.getStatus().equals("PENDING"))
+        .count();
+    return openPositions == 0;
+  }
+
+  private void deleteTraderSecurityOrders(Integer traderId) {
+    List<SecurityOrder> securityOrders = securityOrderDao.findAll();
+    securityOrders.stream()
+        .filter(securityOrder -> securityOrder.getAccountId().equals(traderId))
+        .forEach(securityOrder -> securityOrderDao.deleteById(securityOrder.getId()));
   }
 }
