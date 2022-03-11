@@ -78,7 +78,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
    * @param quote to update
    */
   private int updateOne(Quote quote) {
-    String updateSql = "UPDATE quote SET last_price=?, bid_price=?, "
+    String updateSql = "UPDATE " + TABLE_NAME + " SET last_price=?, bid_price=?, "
         + "bid_size=?, ask_price=?, ask_size=? WHERE ticker=?";
     return jdbcTemplate.update(updateSql, makeUpdateValues(quote));
   }
