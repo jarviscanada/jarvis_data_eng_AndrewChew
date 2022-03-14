@@ -46,8 +46,7 @@ public class DashboardService {
     }
     Trader trader = traderDao.findById(traderId)
         .orElseThrow(() -> new IllegalArgumentException("traderId not found"));
-    Account account = accountDao.findById(traderId)
-        .orElseThrow(() -> new IllegalArgumentException("account not found"));
+    Account account = findAccountByTraderId(traderId);
     TraderAccountView traderAccountView = new TraderAccountView();
     traderAccountView.setTrader(trader);
     traderAccountView.setAccount(account);
