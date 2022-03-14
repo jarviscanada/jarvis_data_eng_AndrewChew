@@ -81,7 +81,7 @@ public class OrderService {
     securityOrder.setSize(size);
     securityOrder.setStatus("PENDING");
     securityOrder.setTicker(ticker);
-    return securityOrderDao.save(securityOrder);
+    return securityOrder;
   }
 
   /**
