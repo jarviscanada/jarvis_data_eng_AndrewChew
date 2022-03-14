@@ -6,6 +6,7 @@ import ca.jrvs.apps.trading.dao.QuoteDao;
 import ca.jrvs.apps.trading.dao.TraderDao;
 import ca.jrvs.apps.trading.model.domain.Account;
 import ca.jrvs.apps.trading.model.domain.PortfolioView;
+import ca.jrvs.apps.trading.model.domain.Trader;
 import ca.jrvs.apps.trading.model.domain.TraderAccountView;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,17 @@ public class DashboardService {
    * @throws IllegalArgumentException if traderId is null or not found
    */
   public TraderAccountView getTraderAccount(Integer traderId) {
-    // TODO
-    return null;
+    if (traderId == null) {
+      throw new IllegalArgumentException("traderId cannot be null");
+    }
+    Trader trader = traderDao.findById(traderId)
+        .orElseThrow(() -> new IllegalArgumentException("traderId not found"));
+    Account account = accountDao.findById(traderId)
+        .orElseThrow(() -> new IllegalArgumentException("account not found"));
+    TraderAccountView traderAccountView = new TraderAccountView();
+    traderAccountView.setTrader(trader);
+    traderAccountView.setAccount(account);
+    return traderAccountView;
   }
 
   /**
