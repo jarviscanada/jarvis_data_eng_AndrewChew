@@ -8,9 +8,13 @@
 * [Improvements](#Improvements)
 
 # Introduction
-- Explain business context briefly (see the kick-off ticket)
-- Explain what does your project does? (e.g. manage clients and accounts, execute security orders, etc..)
-- Discuss technologies you used
+This SpringBoot app is designed as a proof-of-concept to replace the legacy Jarvis Trading Platform 
+which adopts the Monolithic architecture. This new trading platform uses the Microservice 
+architecture which makes the app easier to scale and maintain. This app allows users to pull market
+data supplied by IEXCloud, interact with their accounts/ portfolios, and create market orders.
+  
+This app is coded in Java and utilizes SpringBoot for dependency management, Maven for project 
+management, a PostgreSQL database for persisting data, and Docker for distribution.
 
 # Quick Start
 - Prequiresites: Docker, CentOS 7
