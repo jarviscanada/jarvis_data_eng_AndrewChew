@@ -17,12 +17,50 @@ This app is coded in Java and utilizes SpringBoot for dependency management, Mav
 management, a PostgreSQL database for persisting data, and Docker for distribution.
 
 # Quick Start
-- Prequiresites: Docker, CentOS 7
-- Docker scripts with description
-    - build images
-    - create a docker network
-    - start containers
-- Try trading-app with SwaggerUI (screenshot)
+- Pre-requisites: Docker, CentOS 7
+- Docker Scripts:
+  - Build images:
+    - Initialize PostgreSQL database:
+    ```shell 
+    cd psql
+    docker build -t trading-psql .
+    docker image ls -f reference=trading-psql
+    ```
+    - Build using Maven and start app:
+    ```shell
+    cd ..
+    docker build -t trading-app .
+    docker image ls -f reference=trading-app
+    ```
+  - Create Docker network:
+    ```shell
+    sudo docker network create trading-net
+    ```
+  - Start containers:
+    ```shell
+    docker run -d --rm --name trading-psql-dev \
+    -e POSTGRES_PASSWORD=password \
+    -e POSTGRES_DB=jrvstrading \
+    -e POSTGRES_USER=postgres \
+    --network trading-net \
+    -p 5432:5432 \
+    -t trading-psql
+    
+    IEX_PUB_TOKEN="your_token"
+    
+    docker run -d --rm --name trading-app-dev \
+    -e "PSQL_HOST=trading-app-dev" \
+    -e "PSQL_PORT=5432" \
+    -e "PSQL_DB=jrvstrading" \
+    -e "PSQL_USER=postgres" \
+    -e "PSQL_PASSWORD=password" \
+    -e "IEX_PUB_TOKEN=${IEX_PUB_TOKEN}" \
+    --network trading-net \
+    -p 5000:5000 \
+    -t trading-app
+    ```
+- Try trading-app with SwaggerUI:
+  - http://localhost:5000/swagger-ui.html
 
 # Implementation
 ## Architecture
