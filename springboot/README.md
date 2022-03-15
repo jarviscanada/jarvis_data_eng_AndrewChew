@@ -1,6 +1,11 @@
-Table of contents
+# Table of contents
 * [Introduction](#Introduction)
-* include all first level titles
+* [Quick Start](#Quick-Start)
+* [Implementation](#Implementation)
+* [REST API Usage](#REST-API-Usage)
+* [Test](#Test)
+* [Deployment](#Deployment)
+* [Improvements](#Improvements)
 
 # Introduction
 - Explain business context briefly (see the kick-off ticket)
@@ -15,7 +20,7 @@ Table of contents
     - start containers
 - Try trading-app with SwaggerUI (screenshot)
 
-# Implemenation
+# Implementation
 ## Architecture
 - Draw a component diagram that contains controllers, services, DAOs, SQL, IEX Cloud, WebServlet/Tomcat, HTTP client, and SpringBoot. (you must create your own diagram)
 - briefly explain the following components and services (3-5 sentences for each)
