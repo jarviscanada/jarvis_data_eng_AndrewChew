@@ -1,5 +1,8 @@
 package ca.jrvs.practice.codingChallenge;
 
+/**
+ * Ticket: https://www.notion.so/jarvisdev/LinkedList-Cycle-7a12dc12896348e99bb55a060b4d0376
+ */
 public class LinkedListCycle {
 
   static class ListNode {
